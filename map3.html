@@ -31,14 +31,22 @@ var study_area_feature = {
 } }
 ]}
 var study_area_style = {
-"color": "#c91212",
-"fillColor": "#ffffff",
-"weight": 5}
+"color": "blue",
+"fillColor": "blue",
+"weight": 10}
 overlay_study_area = L.geoJSON(study_area_feature, {style: study_area_style} ).addTo(mymap);
+var overlay_TanDEM = L.tileLayer.wms("http://134.2.216.52:8080/geoserver-roceeh/recent_world/wms", {
+layers: 'TDM1_DEM__04_S30E029_DEM',
+format: 'image/png',
+transparent: true,
+attribution: "TanDEM-X"
+});
+overlay_TanDEM.addTo(mymap);
 
 var basemaps = {
 	"OSM": OSM_background,
-	"Luftbild": Esri_WorldImagery
+	"Luftbild": Esri_WorldImagery, 
+	"WGS": overlay_TanDEM
 	};
 var layer = {
 	"Untersuchungsgebiet" : overlay_study_area};
