@@ -18,11 +18,25 @@ var mymap = L.map("mapid").setView([ 48.5124,9.0556]).setZoom(14);
 var OSM_background =
 L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png').addTo(mymap);
 var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}.png').addTo(mymap);
+
+var scale = L.control.scale({maxWidth: 200, metric: true, imperial: false}).addTo(mymap);
+var study_area_feature = {
+"type": "FeatureCollection",
+"name": "study_area_4326",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [{ "type": "Feature", "properties": { "id": 0 }, "geometry": { "type":
+"MultiPolygon", "coordinates": [ [ [ [ 29.597263320989793, -29.633496720408946 ], [
+29.595800635703583, -29.582872285881187 ], [ 29.740123992722264, -29.580833660892289 ], [
+29.749516887591113, -29.629706379312612 ], [ 29.597263320989793, -29.633496720408946 ] ] ] ]
+} }
+]}
+overlay_study_area = L.geoJSON(study_area_feature).addTo(mymap);
 var basemaps = {
 	"OSM": OSM_background,
-	"Luftbild": Esri_WorldImagery
+	"Luftbild": Esri_WorldImagery, 
+	"Bereich_gullys":study_area_feature
 };
-var legend = L.control.layers(basemaps, null,{position:"topleft"}).addTo(mymap);
+var legend = L.control.layers(basemaps, null,{position:"topright"}).addTo(mymap);
 </script>
 </body>
 </html>
