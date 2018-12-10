@@ -30,13 +30,20 @@ var study_area_feature = {
 29.749516887591113, -29.629706379312612 ], [ 29.597263320989793, -29.633496720408946 ] ] ] ]
 } }
 ]}
-overlay_study_area = L.geoJSON(study_area_feature).addTo(mymap);
+var study_area_style = {
+"color": "#c91212",
+"fillColor": "#ffffff",
+"weight": 5}
+overlay_study_area = L.geoJSON(study_area_feature, {style: study_area_style} ).addTo(mymap);
+
 var basemaps = {
 	"OSM": OSM_background,
-	"Luftbild": Esri_WorldImagery, 
-	"Bereich_gullys":study_area_feature
-};
-var legend = L.control.layers(basemaps, null,{position:"topright"}).addTo(mymap);
+	"Luftbild": Esri_WorldImagery
+	};
+var layer = {
+	"Untersuchungsgebiet" : overlay_study_area};
+var legend = L.control.layers(basemaps, layer,{position:"topright"}).addTo(mymap);
+
 </script>
 </body>
 </html>
